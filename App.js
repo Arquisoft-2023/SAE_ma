@@ -1,20 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { ApolloProvider} from '@apollo/client';
+import { client } from './src/util/Client';
+import { PrimeraEscucha } from './src/views/remisiones/PrimeraEscucha';
 
-export default function App() {
+export default function Root() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+    <ApolloProvider client={client('remisiones/remisiones')}>
+      <PrimeraEscucha />
+    </ApolloProvider>
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+}   
+  
