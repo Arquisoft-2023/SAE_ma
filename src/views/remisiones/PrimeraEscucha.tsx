@@ -1,32 +1,44 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native';
-import { PrimeraEscuchoApolloRequest } from '../../services/remisiones/PrimeraEscuchaApolloRequest';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { PrimeraEscuchaQueries } from '../../queries/remisiones/PrimeraEscuchaQueries';
+import DataTable from '../../components/DataTable';
+import { client } from '../../util/Client';
 
 export function PrimeraEscucha(){
 
-
-/*  const [charactersList, setCharactersList] = React.useState([]);
-
-  React.useEffect(() => {
-    (async () => {
-      const primerasEscuchas = await PrimeraEscuchoApolloRequest.primerasEscuchas();
-      setCharactersList(primerasEscuchas)
-    })
-  })*/
-
   const { data } = useQuery(PrimeraEscuchaQueries);
   const primerasEscuchasData = data?.obtenerPrimerasescuchas || [];
+  const remisiones = data?.obtenerRemisiones || [];
+
+  const columns = [
+    {field: 'idPrimeraEscucha', headerName: 'ID', align: "center"},
+    {field: 'fechaPrimeraEscucha', headerName: 'FECHA PRIMERA ESCUCHA', align: "center"},
+    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', align: "center"},
+    {field: 'observacion', headerName: 'OBSERVACIÓN', align: "center"},
+    {field: 'realizada', headerName: 'ESTADO', align: "center"}
+  ];
+
+  const rows = primerasEscuchasData.map((item) => {
+
+    const matchingItem = remisiones.find((character) => character.idPrimeraEscucha === item.idPrimeraEscucha);
+    const usuarioUnEstudiante = matchingItem ? matchingItem.usuarioUnEstudiante : '';
+
+    return {
+      idPrimeraEscucha: item.idPrimeraEscucha, 
+      fechaPrimeraEscucha: item.fechaPrimeraEscucha,
+      usuarioUnEstudiante: usuarioUnEstudiante,
+      observacion: item.observacion,
+      realizada: item.realizada ? 'Realizada' : 'Pendiente'
+    }
+
+  }).map((row, index) => ({ ...row, key: index.toString() }));
 
   return (
     <View style={styles.container}>
-      {primerasEscuchasData.map((escucha:any) => (
-        <View key={escucha.idPrimeraEscucha}>
-          <Text>{escucha.fechaPrimeraEscucha}</Text>
-          <Text>{escucha.observacion}</Text>
-        </View>
-      ))}
+      <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
+        <DataTable rows={rows} columns={columns}/>
+      </ScrollView>
     </View>
   );
 }
@@ -38,4 +50,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    contentContainer: {
+      flexGrow: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
 });
