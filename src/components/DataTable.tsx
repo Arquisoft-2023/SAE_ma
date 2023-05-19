@@ -1,32 +1,27 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
 
 const DataTable = ({ rows, columns }) => {
-
-  const renderItem = ({ item }) => (
-    <View style={styles.tableRow}>
-      {columns.map((column) => (
-        <Text style={styles.tableCell} key={column.field}>
-          {item[column.field]}
-        </Text>
-      ))}
-    </View>
-  );
+  // Transformar objetos en arrays para las filas y columnas
+  const transformedColumns = columns.map((column) => column.headerName);
+  const transformedRows = rows.map((row) => Object.values(row));
 
   return (
-    <View>
-      <View style={styles.tableHeader}>
-        {columns.map((column) => (
-          <Text style={styles.columnHeader} key={column.field}>
-            {column.headerName}
-          </Text>
-        ))}
-      </View>
-      <FlatList
-        data={rows}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-      />
+    <View style={styles.container}>
+      <Table>
+        <Row
+          data={transformedColumns}
+          style={styles.tableHeader}
+          textStyle={styles.columnHeader}
+          keyExtractor={(item, index) => index.toString()}
+        />
+        <Rows
+          data={transformedRows}
+          style={styles.tableRow} // Agrega esta línea para asignar el estilo de las celdas
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </Table>
     </View>
   );
 };
@@ -34,6 +29,10 @@ const DataTable = ({ rows, columns }) => {
 export default DataTable;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+  },
   tableHeader: {
     flexDirection: 'row',
     backgroundColor: 'black',
@@ -42,7 +41,6 @@ const styles = StyleSheet.create({
     gap: 15
   },
   columnHeader: {
-    flex: 1,
     color: 'white',
     fontWeight: 'bold',
   },

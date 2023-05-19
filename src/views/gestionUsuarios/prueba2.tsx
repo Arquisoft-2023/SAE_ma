@@ -5,18 +5,18 @@ import { PrimeraEscuchaQueries } from '../../queries/remisiones/PrimeraEscuchaQu
 import DataTable from '../../components/DataTable';
 import { client } from '../../util/Client';
 
-export function PrimeraEscucha(){
+export function Prueba2(){
 
   const { data } = useQuery(PrimeraEscuchaQueries);
   const primerasEscuchasData = data?.obtenerPrimerasescuchas || [];
   const remisiones = data?.obtenerRemisiones || [];
 
   const columns = [
-    {field: 'idPrimeraEscucha', headerName: 'ID', width: "20"},
-    {field: 'fechaPrimeraEscucha', headerName: 'FECHA PRIMERA ESCUCHA', width: "50"},
-    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', width: "30"},
-    {field: 'observacion', headerName: 'OBSERVACIÓN', width: "50"},
-    {field: 'realizada', headerName: 'ESTADO', width: "20"}
+    {field: 'idPrimeraEscucha', headerName: 'ID', align: "center"},
+    {field: 'fechaPrimeraEscucha', headerName: 'FECHA PRIMERA ESCUCHA', align: "center"},
+    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', align: "center"},
+    {field: 'observacion', headerName: 'OBSERVACIÓN', align: "center"},
+    {field: 'realizada', headerName: 'ESTADO', align: "center"}
   ];
 
   const rows = primerasEscuchasData.map((item) => {
@@ -32,7 +32,7 @@ export function PrimeraEscucha(){
       realizada: item.realizada ? 'Realizada' : 'Pendiente'
     }
 
-  })
+  }).map((row, index) => ({ ...row, key: index.toString() }));
 
   return (
     <View style={styles.container}>
