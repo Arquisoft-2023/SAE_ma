@@ -10,9 +10,9 @@ import LogoSae from './LogoSAE';
 import { Prueba1 } from '../views/gestionUsuarios/prueba1';
 import { Prueba2 } from '../views/gestionUsuarios/prueba2';
 import { Prueba3 } from '../views/gestionUsuarios/prueba3';
-import { Prueba6 } from '../views/tutorias/prueba6';
-import { Prueba5 } from '../views/tutorias/prubea5';
-import { Prueba4 } from '../views/tutorias/prueba4';
+import { VerTutoria1 } from '../views/tutorias/VerTutoria1';
+import { VerTutoria2 } from '../views/tutorias/VerTutoria2';
+import { VerObservaciones } from '../views/tutorias/VerObservaciones';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,28 +34,29 @@ const pruebaArrayRemisiones = [
   },
 ];
 
-const pruebaArrayTutorias = [
+// TUTORIAS
+const user = {email: "javergara", rol: "docente"}
+const ArrayTutorias2 = [
   {
-    label2: "p4",
-    textl: "p4",
-    component: Prueba4,
+    label2: "Ver Tutorias",
+    textl: "Ver Tutorias",
+    component: VerTutoria2,
   },
   {
-    label2: "p5",
-    textl: "p5",
-    component: Prueba5,
-  },
-  {
-    label2: "p6",
-    textl: "p6",
-    component: Prueba6,
-  },
-  {
-    label2: "p9",
-    textl: "p9",
-    component: Prueba6,
-  },
+      label2: "Ver Observaciones",
+      textl: "Ver Observaciones",
+      component: VerObservaciones,
+  }
 ];
+
+const ArrayTutorias1 = [
+  {
+    label2: "Ver Tutorias",
+    textl: "Ver Tutorias",
+    component: VerTutoria1,
+  }
+];
+//
 
 const pruebaArrayGestion = [
   {
@@ -95,11 +96,13 @@ const SideBar = () => {
             component={component} />
           ))}
 
-          {pruebaArrayTutorias.map(({ label2, textl, component }) => (
+          {(user.rol == "bienestar"? ArrayTutorias1: ArrayTutorias2).map(({ label2, textl, component }) => (
             <Drawer.Screen 
             key={label2} 
             name={textl} 
-            component={component} />
+            component={component} 
+            initialParams={{ param1: user.email, param2: user.rol }}
+            />
           ))}
 
           {pruebaArrayGestion.map(({ label2, textl, component }) => (
@@ -133,7 +136,7 @@ const MenuItems = ({ navigation }) => {
         ))}
 
         <Text style={styles.subtitles}>Tutorias</Text>
-        {pruebaArrayTutorias.map(({ label2, textl }) => (
+        {(user.rol == "bienestar" ? ArrayTutorias1: ArrayTutorias2).map(({ label2, textl }) => (
           <MenuButtonItem
             key={label2}
             text={textl}

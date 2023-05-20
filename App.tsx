@@ -18,7 +18,7 @@ export default function Root() {
 
   return (
     <>
-    <ApolloProvider client={client("remisiones/remisiones")}>
+    <ApolloProvider client={client("tutorias/acompanyamiento")}>
       <SideBar />
     </ApolloProvider>
     </>
