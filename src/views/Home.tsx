@@ -2,12 +2,13 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { ApolloProvider} from '@apollo/client';
 import { client } from '../util/Client';
-import { PrimeraEscucha } from './remisiones/PrimeraEscucha';
+import { Prueba1 } from './gestionUsuarios/prueba1'
+
 
 const Home = () => {
   return (
-    <ApolloProvider client={client('remisiones/remisiones')}>
-      <PrimeraEscucha />
+    <ApolloProvider client={client('gestionUsuarios/usuarios')}>
+      <Prueba1 />
     </ApolloProvider>
   )
 }

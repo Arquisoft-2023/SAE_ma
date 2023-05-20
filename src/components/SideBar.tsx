@@ -4,12 +4,10 @@ import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigatio
 import { PrimeraEscucha } from '../views/remisiones/PrimeraEscucha';
 import { SolicitudRemision } from '../views/remisiones/SolicitudRemision';
 import { Remision } from '../views/remisiones/Remision';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import MenuButtonItem from './MenuButtonItem';
 import LogoSae from './LogoSAE';
 import { Prueba1 } from '../views/gestionUsuarios/prueba1';
-import { Prueba2 } from '../views/gestionUsuarios/prueba2';
-import { Prueba3 } from '../views/gestionUsuarios/prueba3';
 import { Prueba6 } from '../views/tutorias/prueba6';
 import { Prueba5 } from '../views/tutorias/prubea5';
 import { Prueba4 } from '../views/tutorias/prueba4';
@@ -62,21 +60,6 @@ const pruebaArrayGestion = [
     label2: "p1",
     textl: "p1",
     component: Prueba1,
-  },
-  {
-    label2: "p2",
-    textl: "p2",
-    component: Prueba2,
-  },
-  {
-    label2: "p3",
-    textl: "p3",
-    component: Prueba3,
-  },
-  {
-    label2: "p8",
-    textl: "p8",
-    component: Prueba3,
   },
 ];
 
