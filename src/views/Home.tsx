@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { ApolloProvider} from '@apollo/client';
 import { client } from '../util/Client';
-import { Prueba1 } from './gestionUsuarios/prueba1'
+import { Prueba1 } from './gestionUsuarios/Usuarios'
 
 
 const Home = () => {

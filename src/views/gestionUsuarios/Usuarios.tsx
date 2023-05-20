@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GestionDeUsuariosQueries } from "../../queries/gestionDeUsuarios/GestionDeUsuariosQueries";
+import { UsuariosQueries } from "../../queries/gestionDeUsuarios/UsuariosQueries";
 import DataTable from "../../components/DataTable";
 import { client } from "../../util/Client";
 
@@ -29,8 +29,8 @@ function leerBooleans(respuestaUsuario: String) {
   }
 }
 
-export function Prueba1() {
-  const { data } = useQuery(GestionDeUsuariosQueries);
+export function Usuarios() {
+  const { data } = useQuery(UsuariosQueries);
   const usuariosData = data?.leerUsuarios || [];
 
   const columns = [
@@ -57,7 +57,6 @@ export function Prueba1() {
         usuarioUn: item.usuarioUn,
       };
     })
-    .map((row, index) => ({ ...row, key: index.toString() }));
 
   return (
     <View style={styles.container}>

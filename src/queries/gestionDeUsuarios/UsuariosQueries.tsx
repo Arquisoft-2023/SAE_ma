@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GestionDeUsuariosQueries = gql`
+export const UsuariosQueries = gql`
 query MyQuery {
   leerUsuarios {
     apellidos

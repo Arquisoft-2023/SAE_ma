@@ -7,10 +7,16 @@ import { Remision } from '../views/remisiones/Remision';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import MenuButtonItem from './MenuButtonItem';
 import LogoSae from './LogoSAE';
-import { Prueba1 } from '../views/gestionUsuarios/prueba1';
+
+// Gestion de Usuarios
+import {Usuarios} from '../views/gestionUsuarios/Usuarios';
+import {Roles} from '../views/gestionUsuarios/Roles';
+import { UsuariosRoles } from '../views/gestionUsuarios/UsuariosRoles';
+
 import { Prueba6 } from '../views/tutorias/prueba6';
 import { Prueba5 } from '../views/tutorias/prubea5';
 import { Prueba4 } from '../views/tutorias/prueba4';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -57,10 +63,20 @@ const pruebaArrayTutorias = [
 
 const pruebaArrayGestion = [
   {
-    label2: "p1",
-    textl: "p1",
-    component: Prueba1,
+    label2: "Usuarios",
+    textl: "Usuarios",
+    component: Usuarios,
   },
+  {
+    label2: "Roles",
+    textl: "Roles",
+    component: Roles,
+  },
+  {
+    label2: "UsuariosyRoles",
+    textl: "Usuarios y Roles",
+    component: UsuariosRoles,
+  }
 ];
 
 const SideBar = () => {
