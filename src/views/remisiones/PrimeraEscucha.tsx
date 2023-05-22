@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { PrimeraEscuchaQueries } from '../../queries/remisiones/PrimeraEscuchaQueries';
 import DataTable from '../../components/DataTable';
-import { client } from '../../util/Client';
 
 export function PrimeraEscucha(){
 
@@ -12,11 +11,11 @@ export function PrimeraEscucha(){
   const remisiones = data?.obtenerRemisiones || [];
 
   const columns = [
-    {field: 'idPrimeraEscucha', headerName: 'ID', width: "20"},
-    {field: 'fechaPrimeraEscucha', headerName: 'FECHA PRIMERA ESCUCHA', width: "50"},
-    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', width: "30"},
-    {field: 'observacion', headerName: 'OBSERVACIÓN', width: "50"},
-    {field: 'realizada', headerName: 'ESTADO', width: "20"}
+    {field: 'idPrimeraEscucha', headerName: 'ID', ancho: 40},
+    {field: 'fechaPrimeraEscucha', headerName: 'FECHA PRIMERA ESCUCHA', ancho: 100},
+    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', ancho: 40},
+    {field: 'observacion', headerName: 'OBSERVACIÓN', ancho: 150},
+    {field: 'realizada', headerName: 'ESTADO', ancho: 40}
   ];
 
   const rows = primerasEscuchasData.map((item) => {

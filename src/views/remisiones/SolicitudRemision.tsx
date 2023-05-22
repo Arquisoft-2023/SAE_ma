@@ -6,6 +6,8 @@ import { SolicitudRemisionQueries } from '../../queries/remisiones/SolicitudRemi
 
 export function SolicitudRemision(){
 
+  const [charactersList, setCharactersList] = React.useState([]);
+
   const { data } = useQuery(SolicitudRemisionQueries);
   const solicitudesRemisionData = data?.obtenerSolicitudesremision || [];
 

@@ -12,16 +12,16 @@ export function Remision(){
   const remisionesData = data?.obtenerRemisiones || [];
 
   const columns = [
-    {field: 'idRemision', headerName: 'ID', align: "center"},
-    {field: 'fechaEnvioRemision', headerName: 'FECHA DE REMISIÓN', align: "center"},
-    {field: 'tipoRemision', headerName: 'TIPO DE REMISIÓN', align: "center"},
-    {field: 'usuarioUnDocente', headerName: 'DOCENTE', align: "center"},
-    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', align: "center"},
-    {field: 'programaCurricular', headerName: 'PROGRAMA', align: "center"},
-    {field: 'justificacionSolicitud', headerName: 'JUSTIFICACIÓN', align: "center"},
-    {field: 'primeraEscuchaRealizada', headerName: 'PRIMERA ESCUCHA', align: "center"},
-    {field: 'observacionPrimeraEscucha', headerName: 'OBSERVACIÓN', align: "center"},
-    {field: 'remisionEfectiva', headerName: 'ESTADO', align: "center"},
+    {field: 'idRemision', headerName: 'ID', ancho: 30},
+    {field: 'fechaEnvioRemision', headerName: 'FECHA DE REMISIÓN', ancho: 100},
+    {field: 'tipoRemision', headerName: 'TIPO DE REMISIÓN', ancho: 100},
+    {field: 'usuarioUnDocente', headerName: 'DOCENTE', ancho: 100},
+    {field: 'usuarioUnEstudiante', headerName: 'ESTUDIANTE', ancho: 100},
+    {field: 'programaCurricular', headerName: 'PROGRAMA', ancho: 100},
+    {field: 'justificacionSolicitud', headerName: 'JUSTIFICACIÓN', ancho: 100},
+    {field: 'primeraEscuchaRealizada', headerName: 'PRIMERA ESCUCHA', ancho: 100},
+    {field: 'observacionPrimeraEscucha', headerName: 'OBSERVACIÓN', ancho: 100},
+    {field: 'remisionEfectiva', headerName: 'ESTADO', ancho: 100},
   ];
 
   const rows = remisionesData.map((item) => ({

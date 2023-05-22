@@ -3,6 +3,7 @@ import { ApolloProvider} from '@apollo/client';
 import { client } from './src/util/Client';
 import SideBar from './src/components/SideBar';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { PaperProvider } from 'react-native-paper';
 
 
 
@@ -18,9 +19,11 @@ export default function Root() {
 
   return (
     <>
-    <ApolloProvider client={client("remisiones/remisiones")}>
-      <SideBar />
-    </ApolloProvider>
+    <PaperProvider>
+      <ApolloProvider client={client("remisiones/remisiones")}>
+        <SideBar />
+      </ApolloProvider>
+    </PaperProvider>
     </>
   );
 }   
