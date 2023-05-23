@@ -7,7 +7,7 @@ const DataTableComponent = ({ rows, columns }) => {
     <DataTable>
       <DataTable.Header style={styles.header}>
         {columns.map((column) => (
-          <DataTable.Title key={column.headerName} style={{
+          <DataTable.Title key={column.key} style={{
             width: column.headerName === 'ID' ? 20 : 200,
             flex: 1,
             justifyContent:'center'
