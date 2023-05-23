@@ -14,13 +14,13 @@ interface myState {
   }
 }
 
-export function VerObservaciones({route}){
+export function VerObservaciones({param1,param2}){
   
-  const { param1, param2 } = route.params;
+  //const { param1, param2 } = route.params;
   const onGetUser = { userEmail: param1 , userRol:  rol[param2.charAt(0).toUpperCase() + param2.slice(1)]};
   const [user, setUser] = useState<myState["user"]>(onGetUser);
 
-  if(onGetUser.userRol === rol.Bienestar) return (<div>Acceso no valido...</div>)  
+  if(onGetUser.userRol === rol.Bienestar) return (<Text>Acceso no valido...</Text>)  
 
   const [getUser, data] = useLazyQuery((user.userRol === rol.Docente? obsQuery.obtenerAcompanyamientoTutor : obsQuery.obtenerAcompanyamientoEstudiante));
   const [rows, setrows] = useState([])

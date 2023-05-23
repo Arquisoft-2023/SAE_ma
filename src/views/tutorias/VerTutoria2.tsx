@@ -14,13 +14,13 @@ interface myState {
   }
 }
 
-export function VerTutoria2({route}){
+export function VerTutoria2({param1,param2}){
   
-  const { param1, param2 } = route.params;
+  //const { param1, param2 } = route.params;
   const onGetUser = { userEmail: param1 , userRol:  rol[param2.charAt(0).toUpperCase() + param2.slice(1)]};
   const [user, setUser] = useState<myState["user"]>(onGetUser);
 
-  if(onGetUser.userRol === rol.Bienestar) return (<div>Acceso no valido...</div>)  
+  if(onGetUser.userRol === rol.Bienestar) return (<Text>Acceso no valido...</Text>)  
 
   const [getUser, data] = useLazyQuery((user.userRol === rol.Docente? tutorialQuery.obtenerAcompanyamientoTutor : tutorialQuery.obtenerAcompanyamientoEstudiante));
   const [rows, setrows] = useState([])
@@ -34,7 +34,6 @@ export function VerTutoria2({route}){
     {key: 5, field: 'acuerdo', headerName: 'Acuerdo', align: "center"},
     {key: 6, field: 'observacionesTutor', headerName: 'Observaciones Tutor', align: "center"},
     {key: 7, field: 'observacionesEstudiante', headerName: 'Observaciones Estudiante', align: "center"},
-    {key: 8, field: 'actionsEdit', headerName: 'Acciones', align: "center"},
     // {key: 7, field: 'Id', headerName: 'Id', align: "center", hidden: true},
   ];
 

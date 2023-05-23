@@ -14,8 +14,13 @@ import { ScrollView } from "react-native-gesture-handler";
 import LogoSae from "./src/components/LogoSAE";
 import MenuButtonItem from "./src/components/MenuButtonItem";
 import {StyleSheet, Text} from 'react-native';
+import { VerObservaciones } from "./src/views/tutorias/VerObservaciones";
+import { VerTutoria1 } from "./src/views/tutorias/VerTutoria1";
+import { VerTutoria2 } from "./src/views/tutorias/VerTutoria2";
 
 const Stack = createStackNavigator();
+
+const user = {user: "javergara", rol: "docente"} 
 
 const client1 = new ApolloClient({
   uri: "http://34.95.254.3:3121/auth/signin",
@@ -69,7 +74,19 @@ const Screen5 = () => (
 
 const Screen6 = () => (
   <ApolloProvider client={client4}>
-    <Prueba1 />
+    <VerObservaciones param1={user.user} param2={user.rol}/>
+  </ApolloProvider>
+);
+
+const Screen7 = () => (
+  <ApolloProvider client={client4}>
+    <VerTutoria1 param1={user.user} param2={user.rol}/>
+  </ApolloProvider>
+);
+
+const Screen8 = () => (
+  <ApolloProvider client={client4}>
+    <VerTutoria2 param1={user.user} param2={user.rol}/>
   </ApolloProvider>
 );
 
@@ -103,14 +120,26 @@ const ArrayGestion = [
   },
 ];
 
-const ArrayTutorias = [
+const ArrayTutorias2 = [
   {
-    label2: "Tutorias",
-    textl: "prueba Tutorias",
-    component: Screen6,
+    label2: "Ver Tutorias",
+    textl: "Ver Tutorias",
+    component: Screen8,
   },
+  {
+      label2: "Ver Observaciones",
+      textl: "Ver Observaciones",
+      component: Screen6,
+  }
 ];
 
+const ArrayTutorias1 = [
+  {
+    label2: "Ver Tutorias",
+    textl: "Ver Tutorias",
+    component: Screen7,
+  }
+];
 
 export default function Root() {
   React.useEffect(() => {
@@ -143,6 +172,14 @@ export default function Root() {
             name={textl} 
             component={component} />
           ))}
+
+          {(user.rol == "bienestar"? ArrayTutorias1: ArrayTutorias2).map(({ label2, textl, component }) => (
+            <Drawer.Screen 
+            key={label2} 
+            name={textl}
+            component={component} 
+            />
+          ))}
           
         </Drawer.Navigator>
       </NavigationContainer>
@@ -159,6 +196,15 @@ const MenuItems = ({ navigation }) => {
 
         <Text style={styles.subtitles}>Remisiones</Text>
         {ArrayRemisiones.map(({ label2, textl }) => (
+          <MenuButtonItem
+            key={label2}
+            text={textl}
+            onPress={() => navigation.navigate(textl)}
+          />
+        ))}
+
+        <Text style={styles.subtitles}>Tutorias</Text>
+        {(user.rol == "bienestar" ? ArrayTutorias1: ArrayTutorias2).map(({ label2, textl }) => (
           <MenuButtonItem
             key={label2}
             text={textl}
