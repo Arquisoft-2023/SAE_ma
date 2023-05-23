@@ -26,9 +26,9 @@ export function VerObservaciones({param1,param2}){
   const [rows, setrows] = useState([])
 
   const columns = [
-    {key: 0, field: 'correo', headerName: 'Correo', align: "center"},
-    {key: 1, field: 'fecha', headerName: 'Fecha', align: "center"},
-    {key: 2, field: 'descripcion', headerName: 'Descripción', align: "center"},
+    {key: 0, field: 'correo', headerName: 'Correo'},
+    {key: 1, field: 'fecha', headerName: 'Fecha'},
+    {key: 2, field: 'descripcion', headerName: 'Descripción'},
     // {key: 8, field: 'actionsEdit', headerName: 'Acciones', align: "center"},
   ];
 
@@ -39,7 +39,7 @@ export function VerObservaciones({param1,param2}){
     for(let item of data){
         for(let observacion of item.listaObservacion){
             rows.push({
-                // key: observacion.Id,
+                id: observacion.Id,
                 correo: item.usuarioUnEstudiante || item.usuarioUnTutor,
                 fecha: dayjs(observacion.fecha).format('MM-DD-YYYY'),
                 descripcion: observacion.descripcion,

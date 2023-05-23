@@ -51,6 +51,7 @@ export function Usuarios() {
     let rows = [];
     for (let item of data) {
       rows.push({
+        id: item.usuarioUn,
         estado: definirEstadoUsuario(item.estado),
         apellidos: item.apellidos,
         documento: item.documento,

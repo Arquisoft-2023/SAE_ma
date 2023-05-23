@@ -10,8 +10,8 @@ export function UsuariosRoles() {
   const usuariosRolesData = data?.leerUsuariosRoles || [];
 
   const columns = [
-    { field: "rol", headerName: "ROL", align: "center" },
-    { field: "usuarioUn", headerName: "USUARIO UN", align: "center" },
+    { key: 0, field: "rol", headerName: "ROL"},
+    { key: 1, field: "usuarioUn", headerName: "USUARIO UN"},
   ];
 
   const [rows, setrows] = useState([]);
@@ -20,6 +20,7 @@ export function UsuariosRoles() {
     let rows = [];
     for (let item of data) {
       rows.push({
+        id: item.usuarioUn,
         rol: rolesData.find((rol) => rol.rolId === item.rolId)?.rol,
         usuarioUn: item.usuarioUn,
       });

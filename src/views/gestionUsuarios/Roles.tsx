@@ -11,8 +11,8 @@ export function Roles() {
 
 
   const columns = [
-    { field: "rolId", headerName: "ID", align: "center" },
-    { field: "rol", headerName: "ROL", align: "center" },
+    { key: 0, field: "rolId", headerName: "ID"},
+    { key: 1, field: "rol", headerName: "ROL"},
   ];
 
   const [rows, setrows] = useState([]);
@@ -21,6 +21,7 @@ export function Roles() {
     let rows = [];
     for (let item of data) {
       rows.push({
+        id: item.rolId,
         rolId: item.rolId,
         rol: item.rol,
       });

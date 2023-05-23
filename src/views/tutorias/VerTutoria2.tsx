@@ -44,7 +44,7 @@ export function VerTutoria2({param1,param2}){
     for(let item of data){
         for(let tutoria of item.listaTutoria){
             rows.push({
-                // key: tutoria.Id,
+                id: tutoria.Id,
                 correo: item.usuarioUnEstudiante || item.usuarioUnTutor,
                 estado: tutoria.estado,
                 fecha: dayjs(tutoria.fecha).format('MM-DD-YYYY'),

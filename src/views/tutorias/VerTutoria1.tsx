@@ -44,7 +44,7 @@ export function VerTutoria1({param1,param2}){
     for(let item of data){
         for(let tutoria of item.listaTutoria){
             rows.push({
-                // key: tutoria.Id,
+                id: tutoria.Id,
                 usuarioUnTutor: item.usuarioUnTutor,
                 usuarioUnEstudiante: item.usuarioUnEstudiante,
                 estado: tutoria.estado,
