@@ -22,7 +22,7 @@ export function VerTutoria1({param1,param2}){
 
   if(onGetUser.userRol !== rol.Bienestar) return (<Text>Acceso no valido...</Text>)  
 
-  const { data } = useQuery(acompanyamientoQuery.obtenerAcompanyamiento);
+  const { data, refetch } = useQuery(acompanyamientoQuery.obtenerAcompanyamiento);
   const [rows, setrows] = useState([])
 
   const columns = [

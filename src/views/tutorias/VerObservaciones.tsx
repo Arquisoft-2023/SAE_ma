@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { Button } from 'react-native-paper'
 import { useLazyQuery } from '@apollo/client'
 import dayjs, { Dayjs } from 'dayjs'
 import React, {useState, useEffect} from 'react'
@@ -22,7 +23,7 @@ export function VerObservaciones({param1,param2}){
 
   if(onGetUser.userRol === rol.Bienestar) return (<Text>Acceso no valido...</Text>)  
 
-  const [getUser, data] = useLazyQuery((user.userRol === rol.Docente? obsQuery.obtenerAcompanyamientoTutor : obsQuery.obtenerAcompanyamientoEstudiante));
+  const [getUser, {data, refetch}] = useLazyQuery((user.userRol === rol.Docente? obsQuery.obtenerAcompanyamientoTutor : obsQuery.obtenerAcompanyamientoEstudiante), { fetchPolicy: "cache-and-network" });
   const [rows, setrows] = useState([])
 
   const columns = [
@@ -49,25 +50,32 @@ export function VerObservaciones({param1,param2}){
     }
     return rows
   }
+  
 
 const fetchData = () => {
   try{
       getUser({variables: (user.userRol === rol.Docente? {usuarioUnTutor: user.userEmail} :{usuarioUnEstudiante: user.userEmail})})
-      if(data.data){
-        setrows(mapper(user.userRol === rol.Docente? data.data.obtenerAcompanyamientoTutor :data.data.obtenerAcompanyamientoEstudiante))
+      if(data){
+        setrows(mapper(user.userRol === rol.Docente? data.obtenerAcompanyamientoTutor :data.obtenerAcompanyamientoEstudiante))
       }
   } catch(error){
     console.log(error)
   }
 }
 
+
 useEffect(() => {
   fetchData();
-},[data.data]);
+},[data?.data]);
 
-console.log(rows)
   return (
     <View style={styles.container}>
+            <Button
+        onPress={() => {fetchData()}}
+      >
+        <Text>Actualizar</Text>
+      </Button>
+
       <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
         <DataTable rows={rows} columns={columns}/>
       </ScrollView>
