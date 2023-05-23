@@ -5,7 +5,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { PaperProvider } from "react-native-paper";
-import { Prueba1 } from "./src/views/gestionUsuarios/prueba1";
+import { Usuarios } from "./src/views/gestionUsuarios/Usuarios";
 import { Remision } from "./src/views/remisiones/Remision";
 import { DrawerContentScrollView, createDrawerNavigator } from "@react-navigation/drawer";
 import { SolicitudRemision } from "./src/views/remisiones/SolicitudRemision";
@@ -14,6 +14,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import LogoSae from "./src/components/LogoSAE";
 import MenuButtonItem from "./src/components/MenuButtonItem";
 import {StyleSheet, Text} from 'react-native';
+import { Roles } from "./src/views/gestionUsuarios/Roles";
+import { UsuariosRoles } from "./src/views/gestionUsuarios/UsuariosRoles";
 
 const Stack = createStackNavigator();
 
@@ -63,13 +65,19 @@ const Screen4 = () => (
 
 const Screen5 = () => (
   <ApolloProvider client={client3}>
-    <Prueba1 />
+    <Usuarios />
   </ApolloProvider>
 );
 
 const Screen6 = () => (
-  <ApolloProvider client={client4}>
-    <Prueba1 />
+  <ApolloProvider client={client3}>
+    <Roles />
+  </ApolloProvider>
+);
+
+const Screen7 = () => (
+  <ApolloProvider client={client3}>
+    <UsuariosRoles />
   </ApolloProvider>
 );
 
@@ -97,9 +105,19 @@ const ArrayRemisiones = [
 
 const ArrayGestion = [
   {
-    label2: "Usuario",
-    textl: "Usuario",
+    label2: "Usuarios",
+    textl: "Usuarios",
     component: Screen5,
+  },
+  {
+    label2: "Roles",
+    textl: "Roles",
+    component: Screen6,
+  },
+  {
+    label2: "Usuarios y Roles",
+    textl: "Usuarios y Roles",
+    component: Screen7,
   },
 ];
 

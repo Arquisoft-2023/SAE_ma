@@ -1,11 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const UsuariosRolesQueries = gql`
+export const RolesQueries = gql`
 query MyQuery {
-    leerUsuariosRoles {
-      rolId
-      usuarioUn
-    }
     leerRoles {
       rol
       rolId

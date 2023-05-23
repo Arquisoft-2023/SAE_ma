@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GestionDeUsuariosQueries } from "../../queries/gestionDeUsuarios/GestionDeUsuariosQueries";
+import { UsuariosQueries } from "../../queries/gestionDeUsuarios/UsuariosQueries";
 import DataTable from "../../components/DataTable";
-import { client } from "../../util/Client";
 
 function definirEstadoUsuario(estadoUsuario: Boolean) {
   if (estadoUsuario == true) {
@@ -29,23 +28,40 @@ function leerBooleans(respuestaUsuario: String) {
   }
 }
 
-export function Prueba1() {
-  const { data } = useQuery(GestionDeUsuariosQueries);
+export function Usuarios() {
+  const { data } = useQuery(UsuariosQueries);
   const usuariosData = data?.leerUsuarios || [];
 
   const columns = [
-    { field: "estado", headerName: "ESTADO USUARIO", align: "center" },
-    { field: "usuarioUn", headerName: "USUARIO UN", align: "center" },
-    { field: "documento", headerName: "DOCUMENTO", align: "center" },
+    { key: 0, field: "estado", headerName: "ESTADO USUARIO" },
+    { key: 1, field: "usuarioUn", headerName: "USUARIO UN" },
+    { key: 2, field: "documento", headerName: "DOCUMENTO" },
     {
+      key: 3,
       field: "tipoDocumento",
       headerName: "DOCUMENTO NACIONAL",
-      align: "center",
     },
-    { field: "nombres", headerName: "NOMBRES", align: "center" },
-    { field: "apellidos", headerName: "APELLIDOS", align: "center" },
+    { key: 4, field: "nombres", headerName: "NOMBRES" },
+    { key: 5, field: "apellidos", headerName: "APELLIDOS" },
   ];
 
+  const [rows, setrows] = useState([]);
+
+  const mapper = (data) => {
+    let rows = [];
+    for (let item of data) {
+      rows.push({
+        estado: definirEstadoUsuario(item.estado),
+        apellidos: item.apellidos,
+        documento: item.documento,
+        nombres: item.nombres,
+        tipoDocumento: definirTipoDocumento(item.tipoDocumento),
+        usuarioUn: item.usuarioUn,
+      });
+    }
+    return rows;
+  };
+  /*
   const rows = usuariosData
     .map((item) => {
       return {
@@ -58,6 +74,17 @@ export function Prueba1() {
       };
     })
     .map((row, index) => ({ ...row, key: index.toString() }));
+    */
+
+  const fetchData = () => {
+    if (data) {
+      setrows(mapper(data.leerUsuarios));
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [data]);
 
   return (
     <View style={styles.container}>

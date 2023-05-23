@@ -7,7 +7,7 @@ import { Remision } from '../views/remisiones/Remision';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import MenuButtonItem from './MenuButtonItem';
 import LogoSae from './LogoSAE';
-import { Prueba1 } from '../views/gestionUsuarios/prueba1';
+import { Prueba1 } from '../views/gestionUsuarios/Usuarios';
 import { Prueba6 } from '../views/tutorias/prueba6';
 import { Prueba5 } from '../views/tutorias/prubea5';
 import { Prueba4 } from '../views/tutorias/prueba4';
