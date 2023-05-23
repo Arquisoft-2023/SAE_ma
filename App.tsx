@@ -5,7 +5,6 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { PaperProvider } from "react-native-paper";
-import { client } from "./src/util/Client";
 import { Prueba1 } from "./src/views/gestionUsuarios/prueba1";
 import { Remision } from "./src/views/remisiones/Remision";
 import { DrawerContentScrollView, createDrawerNavigator } from "@react-navigation/drawer";
@@ -28,8 +27,13 @@ const client2 = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-const client5 = new ApolloClient({
+const client3 = new ApolloClient({
   uri: "http://34.95.254.3:3121/gestionUsuarios/usuarios",
+  cache: new InMemoryCache()
+});
+
+const client4 = new ApolloClient({
+  uri: "http://34.95.254.3:3121/tutorias/acompanyamiento",
   cache: new InMemoryCache()
 });
 
@@ -58,14 +62,22 @@ const Screen4 = () => (
 );
 
 const Screen5 = () => (
-  <ApolloProvider client={client5}>
+  <ApolloProvider client={client3}>
     <Prueba1 />
   </ApolloProvider>
 );
 
+const Screen6 = () => (
+  <ApolloProvider client={client4}>
+    <Prueba1 />
+  </ApolloProvider>
+);
+
+
+
 const Drawer = createDrawerNavigator();
 
-const pruebaArrayRemisiones = [
+const ArrayRemisiones = [
   {
     label2: "Solicitudes de Remision",
     textl: "Solicitudes de Remision",
@@ -82,6 +94,23 @@ const pruebaArrayRemisiones = [
     component: Screen2,
   },
 ];
+
+const ArrayGestion = [
+  {
+    label2: "Usuario",
+    textl: "Usuario",
+    component: Screen5,
+  },
+];
+
+const ArrayTutorias = [
+  {
+    label2: "Tutorias",
+    textl: "prueba Tutorias",
+    component: Screen6,
+  },
+];
+
 
 export default function Root() {
   React.useEffect(() => {
@@ -101,12 +130,20 @@ export default function Root() {
         <Drawer.Navigator
         drawerContent={( props ) => <MenuItems { ...props } /> }
         >
-          {pruebaArrayRemisiones.map(({ label2, textl, component }) => (
+          {ArrayRemisiones.map(({ label2, textl, component }) => (
             <Drawer.Screen 
             key={label2} 
             name={textl} 
             component={component} />
           ))}
+
+          {ArrayGestion.map(({ label2, textl, component }) => (
+            <Drawer.Screen 
+            key={label2} 
+            name={textl} 
+            component={component} />
+          ))}
+          
         </Drawer.Navigator>
       </NavigationContainer>
       </PaperProvider>
@@ -121,7 +158,16 @@ const MenuItems = ({ navigation }) => {
         <LogoSae />
 
         <Text style={styles.subtitles}>Remisiones</Text>
-        {pruebaArrayRemisiones.map(({ label2, textl }) => (
+        {ArrayRemisiones.map(({ label2, textl }) => (
+          <MenuButtonItem
+            key={label2}
+            text={textl}
+            onPress={() => navigation.navigate(textl)}
+          />
+        ))}
+
+        <Text style={styles.subtitles}>Gestion</Text>
+        {ArrayGestion.map(({ label2, textl }) => (
           <MenuButtonItem
             key={label2}
             text={textl}
