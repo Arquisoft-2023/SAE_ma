@@ -8,6 +8,13 @@ import { PaperProvider } from "react-native-paper";
 import { client } from "./src/util/Client";
 import { Prueba1 } from "./src/views/gestionUsuarios/prueba1";
 import { Remision } from "./src/views/remisiones/Remision";
+import { DrawerContentScrollView, createDrawerNavigator } from "@react-navigation/drawer";
+import { SolicitudRemision } from "./src/views/remisiones/SolicitudRemision";
+import { PrimeraEscucha } from "./src/views/remisiones/PrimeraEscucha";
+import { ScrollView } from "react-native-gesture-handler";
+import LogoSae from "./src/components/LogoSAE";
+import MenuButtonItem from "./src/components/MenuButtonItem";
+import {StyleSheet, Text} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +28,7 @@ const client2 = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-const client3 = new ApolloClient({
+const client5 = new ApolloClient({
   uri: "http://34.95.254.3:3121/gestionUsuarios/usuarios",
   cache: new InMemoryCache()
 });
@@ -39,10 +46,42 @@ const Screen2 = () => (
 );
 
 const Screen3 = () => (
-  <ApolloProvider client={client3}>
+  <ApolloProvider client={client2}>
+    <SolicitudRemision />
+  </ApolloProvider>
+);
+
+const Screen4 = () => (
+  <ApolloProvider client={client2}>
+    <PrimeraEscucha />
+  </ApolloProvider>
+);
+
+const Screen5 = () => (
+  <ApolloProvider client={client5}>
     <Prueba1 />
   </ApolloProvider>
 );
+
+const Drawer = createDrawerNavigator();
+
+const pruebaArrayRemisiones = [
+  {
+    label2: "Solicitudes de Remision",
+    textl: "Solicitudes de Remision",
+    component: Screen3,
+  },
+  {
+    label2: "Primeras Escuchas",
+    textl: "Primeras Escuchas",
+    component: Screen4,
+  },
+  {
+    label2: "Remisiones",
+    textl: "Remisiones",
+    component: Screen2,
+  },
+];
 
 export default function Root() {
   React.useEffect(() => {
@@ -59,11 +98,49 @@ export default function Root() {
     <>
       <PaperProvider>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Screen3" component={Screen3} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Drawer.Navigator
+        drawerContent={( props ) => <MenuItems { ...props } /> }
+        >
+          {pruebaArrayRemisiones.map(({ label2, textl, component }) => (
+            <Drawer.Screen 
+            key={label2} 
+            name={textl} 
+            component={component} />
+          ))}
+        </Drawer.Navigator>
+      </NavigationContainer>
       </PaperProvider>
     </>
   );
 }
+
+const MenuItems = ({ navigation }) => {
+  return (
+    <ScrollView style={styles.container}>
+      <DrawerContentScrollView>
+        <LogoSae />
+
+        <Text style={styles.subtitles}>Remisiones</Text>
+        {pruebaArrayRemisiones.map(({ label2, textl }) => (
+          <MenuButtonItem
+            key={label2}
+            text={textl}
+            onPress={() => navigation.navigate(textl)}
+          />
+        ))}
+      </DrawerContentScrollView>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+  },
+  subtitles: {
+    marginTop: 25, 
+    marginBottom: 10, 
+    fontWeight: 'bold',
+
+  },
+})
