@@ -17,7 +17,7 @@ const DataTableComponent = ({ rows, columns }) => {
       {rows.map((row) => (
         <DataTable.Row key={row.id}>
           {columns.map((column) => (
-            <DataTable.Cell key={column.field} style={{
+            <DataTable.Cell key={column.key} style={{
               width: column.headerName === 'ID' ? 20 : 200,
               flex: 1,
               justifyContent:'center'

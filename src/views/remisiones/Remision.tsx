@@ -8,6 +8,8 @@ export function Remision(){
   const { data } = useQuery(PrimeraEscuchaQueries);
   const primerasEscuchasData = data?.obtenerPrimerasescuchas || [];
 
+
+
   return (
     <View style={styles.container}>
       {primerasEscuchasData.map((escucha:any) => (

@@ -7,15 +7,9 @@ import { Button } from 'react-native-paper';
 
 export function PrimeraEscucha(){
 
-  //const { data, loading, error} = useQuery(PrimeraEscuchaQueries);
-  const [characterList, setCharacterList] = useState([])
-
   const { data,refetch } = useQuery(PrimeraEscuchaQueries);
   const primerasEscuchasData = data?.obtenerPrimerasescuchas || [];
   const remisiones = data?.obtenerRemisiones || [];
-
-
-  //const remisiones = data?.obtenerRemisiones || [];
 
   const columns = [
     {key: 0, field: 'idPrimeraEscucha', headerName: 'ID'},
@@ -31,6 +25,7 @@ export function PrimeraEscucha(){
     const usuarioUnEstudiante = matchingItem ? matchingItem.usuarioUnEstudiante : '';
 
     return {
+      id: item.idPrimeraEscucha,
       idPrimeraEscucha: item.idPrimeraEscucha, 
       fechaPrimeraEscucha: item.fechaPrimeraEscucha,
       usuarioUnEstudiante: usuarioUnEstudiante,
