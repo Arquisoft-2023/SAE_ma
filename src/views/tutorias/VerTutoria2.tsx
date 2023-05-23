@@ -6,6 +6,7 @@ import React, {useState, useEffect} from 'react'
 import DataTable from '../../components/DataTable'
 import { tutorialQuery } from '../../queries/tutorias/TutoriasQueries'
 import { acompanyamiento, rol } from '../../types/tutorial/Acompanyamiento.interface' 
+import { Button } from 'react-native-paper'
 
 interface myState {
   user: {
@@ -22,7 +23,7 @@ export function VerTutoria2({param1,param2}){
 
   if(onGetUser.userRol === rol.Bienestar) return (<Text>Acceso no valido...</Text>)  
 
-  const [getUser, data] = useLazyQuery((user.userRol === rol.Docente? tutorialQuery.obtenerAcompanyamientoTutor : tutorialQuery.obtenerAcompanyamientoEstudiante));
+  const [getUser, {data, refetch}] = useLazyQuery((user.userRol === rol.Docente? tutorialQuery.obtenerAcompanyamientoTutor : tutorialQuery.obtenerAcompanyamientoEstudiante));
   const [rows, setrows] = useState([])
 
   const columns = [
@@ -63,26 +64,40 @@ export function VerTutoria2({param1,param2}){
 const fetchData = () => {
   try{
       getUser({variables: (user.userRol === rol.Docente? {usuarioUnTutor: user.userEmail} :{usuarioUnEstudiante: user.userEmail})})
-      if(data.data){
-        setrows(mapper(user.userRol === rol.Docente? data.data.obtenerAcompanyamientoTutor :data.data.obtenerAcompanyamientoEstudiante))
+      if(data){
+        setrows(mapper(user.userRol === rol.Docente? data.obtenerAcompanyamientoTutor :data.obtenerAcompanyamientoEstudiante))
       }
   } catch(error){
-    console.log(error)
   }
 }
 
 useEffect(() => {
   fetchData();
-},[data.data]);
+},[data]);
 
-console.log(rows)
-  return (
-    <View style={styles.container}>
-      <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-        <DataTable rows={rows} columns={columns}/>
-      </ScrollView>
-    </View>
-  );
+return (
+  <>
+  <View style={{}}>
+    <Button
+    icon='reload'
+    mode='contained'
+    style={{
+      width: 50,
+      backgroundColor: 'black'
+    }}
+    onPress={()=>{
+      refetch()
+    }}
+    >
+    </Button>
+  </View>
+  <View style={styles.container}>
+    <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
+      <DataTable rows={rows} columns={columns}/>
+    </ScrollView>
+  </View>
+  </>
+);
 }
 
 const styles = StyleSheet.create({  

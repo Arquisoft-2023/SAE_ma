@@ -4,9 +4,10 @@ import { useQuery } from "@apollo/client";
 import DataTable from "../../components/DataTable";
 import { client } from "../../util/Client";
 import { RolesQueries } from "../../queries/gestionDeUsuarios/RolesQueries";
+import { Button } from "react-native-paper";
 
 export function Roles() {
-  const { data } = useQuery(RolesQueries);
+  const { data, refetch } = useQuery(RolesQueries);
   const rolesData = data?.leerRoles || [];
 
 
@@ -50,11 +51,27 @@ export function Roles() {
   }, [data]);
 
   return (
+    <>
+    <View style={{}}>
+      <Button
+      icon='reload'
+      mode='contained'
+      style={{
+        width: 50,
+        backgroundColor: 'black'
+      }}
+      onPress={()=>{
+        refetch()
+      }}
+      >
+      </Button>
+    </View>
     <View style={styles.container}>
       <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-        <DataTable rows={rows} columns={columns} />
+        <DataTable rows={rows} columns={columns}/>
       </ScrollView>
     </View>
+    </>
   );
 }
 

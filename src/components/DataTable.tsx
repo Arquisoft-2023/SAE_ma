@@ -1,6 +1,6 @@
 import React from 'react';
 import { DataTable } from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,ScrollView} from 'react-native';
 
 const DataTableComponent = ({ rows, columns }) => {
   return (
@@ -14,6 +14,7 @@ const DataTableComponent = ({ rows, columns }) => {
           }} textStyle={styles.titleText}>{column.headerName}</DataTable.Title>
         ))}
       </DataTable.Header>
+      <ScrollView>
       {rows.map((row) => (
         <DataTable.Row key={row.id}>
           {columns.map((column) => (
@@ -25,6 +26,7 @@ const DataTableComponent = ({ rows, columns }) => {
           ))}
         </DataTable.Row>
       ))}
+      </ScrollView>
     </DataTable>
   );
 };

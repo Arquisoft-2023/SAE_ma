@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useQuery } from "@apollo/client";
 import DataTable from "../../components/DataTable";
 import { UsuariosRolesQueries } from "../../queries/gestionDeUsuarios/UsuariosRolesQueries";
+import { Button } from "react-native-paper";
 
 export function UsuariosRoles() {
-  const { data } = useQuery(UsuariosRolesQueries);
+  const { data,refetch } = useQuery(UsuariosRolesQueries);
   const rolesData = data?.leerRoles || [];
   const usuariosRolesData = data?.leerUsuariosRoles || [];
 
@@ -51,11 +52,27 @@ export function UsuariosRoles() {
   }, [data]);
 
   return (
+    <>
+    <View style={{}}>
+      <Button
+      icon='reload'
+      mode='contained'
+      style={{
+        width: 50,
+        backgroundColor: 'black'
+      }}
+      onPress={()=>{
+        refetch()
+      }}
+      >
+      </Button>
+    </View>
     <View style={styles.container}>
       <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-        <DataTable rows={rows} columns={columns} />
+        <DataTable rows={rows} columns={columns}/>
       </ScrollView>
     </View>
+    </>
   );
 }
 

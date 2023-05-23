@@ -6,6 +6,7 @@ import React, {useState, useEffect} from 'react'
 import DataTable from '../../components/DataTable'
 import { acompanyamientoQuery } from '../../queries/tutorias/TutoriasQueries'
 import { acompanyamiento, rol } from '../../types/tutorial/Acompanyamiento.interface' 
+import { Button } from 'react-native-paper'
 
 interface myState {
   user: {
@@ -22,19 +23,19 @@ export function VerTutoria1({param1,param2}){
 
   if(onGetUser.userRol !== rol.Bienestar) return (<Text>Acceso no valido...</Text>)  
 
-  const { data } = useQuery(acompanyamientoQuery.obtenerAcompanyamiento);
+  const { data,refetch } = useQuery(acompanyamientoQuery.obtenerAcompanyamiento);
   const [rows, setrows] = useState([])
 
   const columns = [
-    {key: 0, field: 'usuarioUnTutor', headerName: 'Tutor', align: "center"},
-    {key: 1, field: 'usuarioUnEstudiante', headerName: 'Estudiante', align: "center"},
-    {key: 2, field: 'estado', headerName: 'Estado', align: "center"},
-    {key: 3, field: 'fecha', headerName: 'Fecha', align: "center"},
-    {key: 4, field: 'lugar', headerName: 'Lugar', align: "center"},
-    {key: 5, field: 'objetivo', headerName: 'Objetivo', align: "center"},
-    {key: 6, field: 'acuerdo', headerName: 'Acuerdo', align: "center"},
-    {key: 7, field: 'observacionesTutor', headerName: 'Observaciones Tutor', align: "center"},
-    {key: 8, field: 'observacionesEstudiante', headerName: 'Observaciones Estudiante', align: "center"},
+    {key: 0, field: 'usuarioUnTutor', headerName: 'Tutor'},
+    {key: 1, field: 'usuarioUnEstudiante', headerName: 'Estudiante'},
+    {key: 2, field: 'estado', headerName: 'Estado'},
+    {key: 3, field: 'fecha', headerName: 'Fecha'},
+    {key: 4, field: 'lugar', headerName: 'Lugar'},
+    {key: 5, field: 'objetivo', headerName: 'Objetivo'},
+    {key: 6, field: 'acuerdo', headerName: 'Acuerdo'},
+    {key: 7, field: 'observacionesTutor', headerName: 'Observaciones Tutor'},
+    {key: 8, field: 'observacionesEstudiante', headerName: 'Observaciones Estudiante'},
 ];  
 
   // Mapear datos
@@ -71,13 +72,29 @@ useEffect(() => {
   fetchData();
 },[data]);
 
-  return (
-    <View style={styles.container}>
-      <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-        <DataTable rows={rows} columns={columns}/>
-      </ScrollView>
-    </View>
-  );
+return (
+  <>
+  <View style={{}}>
+    <Button
+    icon='reload'
+    mode='contained'
+    style={{
+      width: 50,
+      backgroundColor: 'black'
+    }}
+    onPress={()=>{
+      refetch()
+    }}
+    >
+    </Button>
+  </View>
+  <View style={styles.container}>
+    <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
+      <DataTable rows={rows} columns={columns}/>
+    </ScrollView>
+  </View>
+  </>
+);
 }
 
 const styles = StyleSheet.create({  

@@ -42,17 +42,18 @@ export function Remision(){
 
   return (
     <>
-    <View>
+    <View style={{}}>
       <Button
+      icon='reload'
       mode='contained'
       style={{
-        width: 50
+        width: 50,
+        backgroundColor: 'black'
       }}
       onPress={()=>{
         refetch()
       }}
       >
-        actualizar
       </Button>
     </View>
     <View style={styles.container}>

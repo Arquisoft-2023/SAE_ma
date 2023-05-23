@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useQuery } from "@apollo/client";
 import { UsuariosQueries } from "../../queries/gestionDeUsuarios/UsuariosQueries";
 import DataTable from "../../components/DataTable";
+import { Button } from "react-native-paper";
 
 function definirEstadoUsuario(estadoUsuario: Boolean) {
   if (estadoUsuario == true) {
@@ -29,7 +30,7 @@ function leerBooleans(respuestaUsuario: String) {
 }
 
 export function Usuarios() {
-  const { data } = useQuery(UsuariosQueries);
+  const { data,refetch } = useQuery(UsuariosQueries);
   const usuariosData = data?.leerUsuarios || [];
 
   const columns = [
@@ -88,11 +89,27 @@ export function Usuarios() {
   }, [data]);
 
   return (
+    <>
+    <View style={{}}>
+      <Button
+      icon='reload'
+      mode='contained'
+      style={{
+        width: 50,
+        backgroundColor: 'black'
+      }}
+      onPress={()=>{
+        refetch()
+      }}
+      >
+      </Button>
+    </View>
     <View style={styles.container}>
       <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-        <DataTable rows={rows} columns={columns} />
+        <DataTable rows={rows} columns={columns}/>
       </ScrollView>
     </View>
+    </>
   );
 }
 
