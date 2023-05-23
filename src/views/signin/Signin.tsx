@@ -1,17 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import userStore from "../../storage/asyncstorage";
+import { ApolloClient, InMemoryCache, useMutation } from "@apollo/client";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
+import { useStore } from "zustand";
 import { UsuariosRolesQueries } from "../../queries/gestionDeUsuarios/UsuariosRolesQueries";
 import { SigninQueries } from "../../queries/signin/SigninQueries";
-import { client } from "../../util/Client";
 
 import {
   ActivityIndicator,
-  Avatar,
   Button,
   Card,
-  Modal,
-  Portal,
   Text,
   TextInput
 } from "react-native-paper";
@@ -20,6 +19,13 @@ export default function Signin() {
   const [loadingCircle, setLoadingCircle] = useState(false);
   const [input, setInput] = useState("");
   const [signinMutation, { data, loading, error }] = useMutation(SigninQueries);
+  const { setUser, usuarioUn, usuarioRol } = useStore(userStore);
+  const navigation = useNavigation();
+
+  const clientGestion = new ApolloClient({
+    uri: "http://34.95.254.3:3121/gestionUsuarios/usuarios",
+    cache: new InMemoryCache()
+  });
 
   const handleChange = (event) => {
     console.log(event.taget.value);
@@ -27,6 +33,7 @@ export default function Signin() {
 
   const handleOnTouch = () => {
     setLoadingCircle(true);
+    console.log("Global state before: ", usuarioUn, usuarioRol);
     try {
       signinMutation({
         variables: {
@@ -36,7 +43,36 @@ export default function Signin() {
         .then(({ data }) => {
           setLoadingCircle(false);
           console.log(data.signin);
-          //alert("Signin Succesfully!");
+          clientGestion
+            .query({
+              query: UsuariosRolesQueries
+            })
+            .then((result) => {
+              if (result.data) {
+                try {
+                  const leerRolesData = result.data.leerRoles;
+                  const leerUsuariosRolesData = result.data.leerUsuariosRoles;
+                  const usuarioUn = data.signin.usuarioUn;
+                  const usuario = leerUsuariosRolesData.find(
+                    (usuario) => usuario.usuarioUn === usuarioUn
+                  );
+                  const rol = leerRolesData.find(
+                    (rol) => rol.rolId === usuario.rolId
+                  );
+
+                  if (usuario && rol) {
+                    setUser(usuario.usuarioUn, rol.rol);
+                    console.log("Global state after: ", usuarioUn, usuarioRol);
+                    setLoadingCircle(false);
+                    navigation.navigate("Home");
+                  } else {
+                    alert("Signin Failed");
+                  }
+                } catch (error) {
+                  alert("Signin Failed");
+                }
+              }
+            });
         })
         .catch((error) => {
           setLoadingCircle(false);

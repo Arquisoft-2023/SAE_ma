@@ -1,19 +1,20 @@
-export const storeUser = async (id, rol) => {
-    const user = {
-        "usuarioUn" : id,
-        "rol" : rol
-    }
-  try {
-    await AsynStorage.setItem("user", JSON.stringify(user));
-  } catch (error) {
-    console.log(error);
-  }
-};
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-export const getUser = async () => {
-  try {
-    const userData = JSON.parse(await AsynStorage.getItem("user"))
-  } catch (error) {
-   console.log(error); 
-  }
-};
+const userStore = create(
+  persist(
+    (set) => ({
+      usuarioUn: "",
+      usuarioRol: "",
+      setUser: (id, role) => set({ usuarioUn: id, usuarioRol: role }),
+      clearUser: () => set({ usuarioUn: "", usuarioRol: "" })
+    }),
+    {
+      name: "UserLoggedIn",
+      storage: createJSONStorage(() => AsyncStorage)
+    }
+  )
+);
+
+export default userStore;
