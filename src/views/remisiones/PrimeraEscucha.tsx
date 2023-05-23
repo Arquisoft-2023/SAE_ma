@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { PrimeraEscuchaQueries } from '../../queries/remisiones/PrimeraEscuchaQueries';
 import DataTable from '../../components/DataTable';
+import { Button } from 'react-native-paper';
 
 export function PrimeraEscucha(){
 
-  const { data } = useQuery(PrimeraEscuchaQueries);
+  //const { data, loading, error} = useQuery(PrimeraEscuchaQueries);
+  const [characterList, setCharacterList] = useState([])
+
+  const { data,refetch } = useQuery(PrimeraEscuchaQueries);
   const primerasEscuchasData = data?.obtenerPrimerasescuchas || [];
   const remisiones = data?.obtenerRemisiones || [];
+
+
+  //const remisiones = data?.obtenerRemisiones || [];
 
   const columns = [
     {key: 0, field: 'idPrimeraEscucha', headerName: 'ID'},
@@ -34,11 +41,26 @@ export function PrimeraEscucha(){
   })
 
   return (
+    <>
+    <View>
+      <Button
+      mode='contained'
+      style={{
+        width: 50
+      }}
+      onPress={()=>{
+        refetch()
+      }}
+      >
+        actualizar
+      </Button>
+    </View>
     <View style={styles.container}>
       <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
         <DataTable rows={rows} columns={columns}/>
       </ScrollView>
     </View>
+    </>
   );
 }
 

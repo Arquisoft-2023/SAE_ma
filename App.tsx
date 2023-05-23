@@ -19,6 +19,7 @@ import { VerTutoria1 } from "./src/views/tutorias/VerTutoria1";
 import { VerTutoria2 } from "./src/views/tutorias/VerTutoria2";
 import { Roles } from "./src/views/gestionUsuarios/Roles";
 import { UsuariosRoles } from "./src/views/gestionUsuarios/UsuariosRoles";
+import Home from "./src/views/Home";
 
 const Stack = createStackNavigator();
 
@@ -180,8 +181,13 @@ export default function Root() {
       <PaperProvider>
         <NavigationContainer>
         <Drawer.Navigator
+        initialRouteName='Home'
         drawerContent={( props ) => <MenuItems { ...props } /> }
         >
+          <Drawer.Screen
+          name="Home"
+          component={Home}
+          />
           {ArrayRemisiones.map(({ label2, textl, component }) => (
             <Drawer.Screen 
             key={label2} 
@@ -216,6 +222,11 @@ const MenuItems = ({ navigation }) => {
     <ScrollView style={styles.container}>
       <DrawerContentScrollView>
         <LogoSae />
+
+        <MenuButtonItem
+            text='home'
+            onPress={() => navigation.navigate('Home')}
+          />
 
         <Text style={styles.subtitles}>Remisiones</Text>
         {ArrayRemisiones.map(({ label2, textl }) => (
