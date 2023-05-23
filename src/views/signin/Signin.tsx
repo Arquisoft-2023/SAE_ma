@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import userStore from "../../storage/asyncstorage";
 import { ApolloClient, InMemoryCache, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 import { StyleSheet, View } from "react-native";
 import { useStore } from "zustand";
 import { UsuariosRolesQueries } from "../../queries/gestionDeUsuarios/UsuariosRolesQueries";
@@ -83,6 +84,10 @@ export default function Signin() {
     }
   };
 
+  const [fontLoaded] = useFonts({
+    Karmella: require("../../assets/fonts/Karmella-Regular.ttf")
+  });
+
   return (
     <View style={styles.container}>
       <Card style={styles.card}>
@@ -110,7 +115,7 @@ export default function Signin() {
               onPress={handleOnTouch}
               disabled={input ? false : true}
             >
-              ENTRAR
+              Entrar
             </Button>
           )}
         </Card.Actions>
@@ -128,9 +133,8 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontWeight: "bold",
     fontSize: 30,
-    fontFamily: "monospace",
+    fontFamily: "Karmella",
     padding: 10
   },
   card: {
