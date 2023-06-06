@@ -5,7 +5,7 @@ import MenuButtonItem from "./src/components/MenuButtonItem";
 import React from "react";
 import Signin from "./src/views/signin/Signin";
 import userStore from "./src/storage/asyncstorage";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache, useMutation } from "@apollo/client";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
@@ -22,6 +22,7 @@ import { SolicitudRemision } from "./src/views/remisiones/SolicitudRemision";
 import { VerObservaciones } from "./src/views/tutorias/VerObservaciones";
 import { VerTutoria1 } from "./src/views/tutorias/VerTutoria1";
 import { VerTutoria2 } from "./src/views/tutorias/VerTutoria2";
+import { LogoutQuery } from "./src/queries/signin/LogoutQueries";
 
 import {
   DrawerContentScrollView,
@@ -234,6 +235,7 @@ export default function Root() {
 const MenuItems = ({ navigation }) => {
   const { clearUser, usuarioUn, usuarioRol } = useStore(userStore);
   const user = { user: usuarioUn, rol: usuarioRol };
+  //const [logoutMutation, { data, loading, error }] = useMutation(LogoutQuery);
 
   const client1 = new ApolloClient({
     uri: "http://35.247.192.77:5000/auth/signin",
@@ -389,6 +391,11 @@ const MenuItems = ({ navigation }) => {
   ];
 
   const handleLogout = () => {
+    /*logoutMutation({
+      variables: {
+        usuarioUnSearch: usuarioUn
+      }
+    })*/
     clearUser();
     navigation.navigate("Signin");
   };

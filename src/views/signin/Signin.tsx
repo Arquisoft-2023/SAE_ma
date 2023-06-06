@@ -25,7 +25,7 @@ export default function Signin() {
   const navigation = useNavigation();
 
   const clientGestion = new ApolloClient({
-    uri: "http://34.95.254.3:3121/gestionUsuarios/usuarios",
+    uri: "http://35.247.192.77:5000/gestionUsuarios/usuarios",
     cache: new InMemoryCache()
   });
 
@@ -39,7 +39,9 @@ export default function Signin() {
     try {
       signinMutation({
         variables: {
-          usuarioUnSearch: input
+          usuarioUnSearch: input,
+          usuarioPassword: password,
+          usuarioTokenType: "movil"
         }
       })
         .then(({ data }) => {
