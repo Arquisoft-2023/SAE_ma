@@ -19,6 +19,7 @@ import {
 export default function Signin() {
   const [loadingCircle, setLoadingCircle] = useState(false);
   const [input, setInput] = useState("");
+  const [password, setPassword] = useState("");
   const [signinMutation, { data, loading, error }] = useMutation(SigninQueries);
   const { setUser, usuarioUn, usuarioRol } = useStore(userStore);
   const navigation = useNavigation();
@@ -98,6 +99,15 @@ export default function Signin() {
           <TextInput
             label="Usuario UN"
             onChangeText={(inputUser) => setInput(inputUser)}
+            mode="outlined"
+            underlineColor="black"
+            activeUnderlineColor="black"
+            activeOutlineColor="black"
+            textColor="black"
+          />
+          <TextInput
+            label="Contraseña"
+            onChangeText={(inputPassword) => setPassword(inputPassword)}
             mode="outlined"
             underlineColor="black"
             activeUnderlineColor="black"

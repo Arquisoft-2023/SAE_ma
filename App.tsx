@@ -27,6 +27,7 @@ import {
   DrawerContentScrollView,
   createDrawerNavigator
 } from "@react-navigation/drawer";
+import { Lugares } from "./src/views/tutorias/VerLugares";
 
 const Drawer = createDrawerNavigator();
 
@@ -35,22 +36,27 @@ export default function Root() {
   const user = { user: usuarioUn, rol: usuarioRol };
 
   const client1 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/auth/signin",
+    uri: "http://35.247.192.77:5000/auth/signin",
     cache: new InMemoryCache()
   });
 
   const client2 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/remisiones/remisiones",
+    uri: "http://35.247.192.77:5000/remisiones/remisiones",
     cache: new InMemoryCache()
   });
 
   const client3 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/gestionUsuarios/usuarios",
+    uri: "http://35.247.192.77:5000/gestionUsuarios/usuarios",
     cache: new InMemoryCache()
   });
 
   const client4 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/tutorias/acompanyamiento",
+    uri: "http://35.247.192.77:5000/tutorias/acompanyamiento",
+    cache: new InMemoryCache()
+  });
+
+  const client5 = new ApolloClient({
+    uri: "http://35.247.192.77:5000/interface/consume/1C",
     cache: new InMemoryCache()
   });
 
@@ -114,6 +120,11 @@ export default function Root() {
     </ApolloProvider>
   );
 
+  const Screen11 = () => (
+    <ApolloProvider client={client5}>
+      <Lugares />
+    </ApolloProvider>
+  );
   const ArrayRemisiones = [
     {
       label2: "Solicitudes de Remision",
@@ -160,6 +171,11 @@ export default function Root() {
       label2: "Ver Observaciones",
       textl: "Ver Observaciones",
       component: Screen6
+    },
+    {
+      label2: "Ver Lugares",
+      textl: "Ver Lugares",
+      component: Screen11
     }
   ];
 
@@ -220,22 +236,27 @@ const MenuItems = ({ navigation }) => {
   const user = { user: usuarioUn, rol: usuarioRol };
 
   const client1 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/auth/signin",
+    uri: "http://35.247.192.77:5000/auth/signin",
     cache: new InMemoryCache()
   });
 
   const client2 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/remisiones/remisiones",
+    uri: "http://35.247.192.77:5000/remisiones/remisiones",
     cache: new InMemoryCache()
   });
 
   const client3 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/gestionUsuarios/usuarios",
+    uri: "http://35.247.192.77:5000/gestionUsuarios/usuarios",
     cache: new InMemoryCache()
   });
 
   const client4 = new ApolloClient({
-    uri: "http://34.95.254.3:3121/tutorias/acompanyamiento",
+    uri: "http://35.247.192.77:5000/tutorias/acompanyamiento",
+    cache: new InMemoryCache()
+  });
+
+  const client5 = new ApolloClient({
+    uri: "http://35.247.192.77:5000/interface/consume/1C",
     cache: new InMemoryCache()
   });
 
@@ -299,6 +320,12 @@ const MenuItems = ({ navigation }) => {
     </ApolloProvider>
   );
 
+  const Screen11 = () => (
+    <ApolloProvider client={client5}>
+      <Lugares />
+    </ApolloProvider>
+  );
+
   const ArrayRemisiones = [
     {
       label2: "Solicitudes de Remision",
@@ -345,6 +372,11 @@ const MenuItems = ({ navigation }) => {
       label2: "Ver Observaciones",
       textl: "Ver Observaciones",
       component: Screen6
+    },
+    {
+      label2: "Ver Lugares",
+      textl: "Ver Lugares",
+      component: Screen11
     }
   ];
 
